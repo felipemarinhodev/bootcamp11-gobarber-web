@@ -41,16 +41,16 @@ const SignIn: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false,
         });
-        history.push('/dashboard');
         await signIn({
           email: data.email,
           password: data.password,
         });
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
-          console.log(err);
+          return;
         }
 
         addToast({
